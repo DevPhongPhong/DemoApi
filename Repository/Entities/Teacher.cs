@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository.Entities
 {
-    public class Student
+    public class Teacher
     {
         [Key]
         public int ID { get; set; }
@@ -32,19 +31,21 @@ namespace Repository.Entities
         public bool Status { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(200)]
         public string Email { get; set; }
 
         [Required]
         [StringLength(10)]
         public string PhoneNumber { get; set; }
 
-        public StudentLogin StudentLogin { get; set; }
+        [Required]
+        public DateTime WorkBegin { get; set; }
 
-        public List<NotJoinStudyTime> ListNotJoinStudyTime { get; set; }
+        [Required]
+        public DateTime WorkEnd { get; set; }
+
+        public TeacherLogin TeacherLogin { get; set; }
 
         public List<Course> ListCourse { get; set; }
-
-        public List<StudentTest> ListStudentTest { get; set; }
     }
 }

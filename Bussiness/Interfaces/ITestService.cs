@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.Interfaces
+namespace Bussiness.Interfaces
 {
-    public interface ICourseRepository : IBaseRepository<Course,int>
+    public interface ITestService
     {
+        Course GetCourse();
     }
 }

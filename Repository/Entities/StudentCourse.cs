@@ -7,21 +7,15 @@ using System.Threading.Tasks;
 
 namespace Repository.Entities
 {
-    public class StudentJoinCourse
+    public class StudentCourse
     {
         [Key]
         public int ID { get; set; }
-        [Required] 
-        public int CourseID { get; set; }
+
         [Required]
         public int StudentID { get; set; }
+
         [Required]
-        public bool Status { get; set; }
-        [Required]
-        public float Score1 { get; set; }
-        [Required]
-        public float Score2 { get; set; }
-        [Required]
-        public float Score3 { get; set; }
+        public int CourseID { get; set; }
     }
 }

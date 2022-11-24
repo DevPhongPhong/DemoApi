@@ -46,12 +46,12 @@ namespace Repository.Repositories
 
         public int UpdateStudent(Student student)
         {
-            var old = _dbContext.Students.Find(student.ID);
-            old.Name = student.Name;
-            old.Dob = student.Dob;
-            old.SectorID = student.SectorID;
-            old.TypeOfTrain = student.TypeOfTrain;
-            old.YearOfTrain = student.YearOfTrain;
+            //var old = _dbContext.Students.Find(student.ID);
+            //old.Name = student.Name;
+            //old.Dob = student.Dob;
+            //old.SectorID = student.SectorID;
+            //old.TypeOfTrain = student.TypeOfTrain;
+            //old.YearOfTrain = student.YearOfTrain;
 
             return _dbContext.SaveChanges();
         }

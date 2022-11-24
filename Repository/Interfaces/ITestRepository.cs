@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface IStudentJoinCourseRepository
+    public interface ITestRepository
     {
-        List<Course> GetListCourseFromStudentID(int id, int status = -1);
+        Course GetCourse();
     }
 }

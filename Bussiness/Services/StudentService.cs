@@ -33,13 +33,13 @@ namespace Bussiness.Services
         {
             try
             {
-                var student = new Student
-                {
-                    Name = model.Name,
-                    Dob = model.Dob,
+                //var student = new Student
+                //{
+                //    Name = model.Name,
+                //    Dob = model.Dob,
 
-                };
-                return _studentRepository.CreateStudent(student);
+                //};
+                return 1;
             }
             catch (Exception e)
             {
@@ -51,16 +51,16 @@ namespace Bussiness.Services
         {
             try
             {
-                var newStudent = new Student
-                {
-                    ID = model.ID,
-                    Name = model.Name,
-                    Dob = model.Dob,
-                    SectorID = model.SectorID,
-                    TypeOfTrain = model.TypeOfTrain,
-                    YearOfTrain = model.YearOfTrain
-                };
-                return _studentRepository.UpdateStudent(newStudent);
+                //var newStudent = new Student
+                //{
+                //    ID = model.ID,
+                //    Name = model.Name,
+                //    Dob = model.Dob,
+                //    SectorID = model.SectorID,
+                //    TypeOfTrain = model.TypeOfTrain,
+                //    YearOfTrain = model.YearOfTrain
+                //};
+                return 1;
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@ namespace Bussiness.Services
 
         public string GetStudentCode(Student student)
         {
-            return ""+student.YearOfTrain + student.TypeOfTrain + student.SectorID + student.ID;
+            return ""/*+student.YearOfTrain + student.TypeOfTrain + student.SectorID + student.ID*/;
         }
 
         public List<Course> GetListCourseJoined(Student student, int status = -1)

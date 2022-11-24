@@ -15,9 +15,16 @@ namespace DemoApi.Extension
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddTransient<IStudentService, StudentService>();
+
             services.AddTransient<IStudentRepository, StudentRepository>();
+
             services.AddTransient<ICourseRepository, CourseRepository>();
+
             services.AddTransient<IStudentJoinCourseRepository, StudentJoinCourseRepository>();
+
+            services.AddTransient<ITestService, TestService>();
+            services.AddTransient<ITestRepository, TestRepository>();
+            
             return services;
         }
     }

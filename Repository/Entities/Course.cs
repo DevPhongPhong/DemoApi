@@ -11,18 +11,31 @@ namespace Repository.Entities
     {
         [Key]
         public int ID { get; set; }
+
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         public string Name { get; set; }
+
         [Required]
         public DateTime BeginDate { get; set; }
+
         [Required]
         public DateTime EndDate { get; set; }
+
         [Required]
-        public DateTime TestTime { get; set; }
+        public short MaxStudent { get; set; }
+
         [Required]
-        public TimeSpan StartTime { get; set; }
-        [Required]
-        public TimeSpan EndTime { get; set; }
+        public int TeacherID { get; set; }
+
+        public Teacher Teacher { get; set; }
+
+        public List<StudyTime> ListStudyTime { get; set; }
+
+        public List<Test> ListTest { get; set; }
+
+        public List<Student> ListStudent { get; set; }
+
+        
     }
 }

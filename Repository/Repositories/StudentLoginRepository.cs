@@ -1,13 +1,13 @@
-﻿using Repository.Entities;
+﻿using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.Interfaces
+namespace Repository.Repositories
 {
-    public interface ICourseRepository : IBaseRepository<Course,int>
+    public class StudentLoginRepository:IStudentLoginRepository
     {
     }
 }
