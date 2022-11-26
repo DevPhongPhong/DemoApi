@@ -26,6 +26,9 @@ namespace Repository.Entities
         public short MaxStudent { get; set; }
 
         [Required]
+        public decimal Price { get; set; }
+
+        [Required]
         public int TeacherID { get; set; }
 
         public Teacher Teacher { get; set; }

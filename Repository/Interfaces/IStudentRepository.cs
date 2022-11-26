@@ -8,11 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface IStudentRepository
+    public interface IStudentRepository : IBaseRepository<Student, int>
     {
-        Student GetByID(int id);
-        int CreateStudent(Student student);
-        int UpdateStudent(Student student);
-        int DeleteStudent(Student student);
     }
 }

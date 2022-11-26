@@ -13,7 +13,7 @@ namespace Repository.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        private DemoDBContext _dbContext;
+        private readonly DemoDBContext _dbContext;
 
         public CourseRepository(DemoDBContext dbContext)
         {
@@ -22,14 +22,14 @@ namespace Repository.Repositories
 
         public Course Get(int id)
         {
-            var course = _dbContext.Courses.Find(id);
+            Course course = _dbContext.Courses.Find(id);
             if (course == null) throw new IdNotFoundException<int>(id, course.GetType());
             return course;
         }
 
         public List<Course> Get(List<int> ids)
         {
-            var query = @"SELECT * 
+            string query = @"SELECT * 
                             FROM courses C
                            WHERE C.ID in (";
             foreach (var id in ids) query += (id + ",");
@@ -40,29 +40,29 @@ namespace Repository.Repositories
             return listCourse;
         }
 
-        public int Create(Course course)
+        public int Create(Course entity)
         {
-            _dbContext.Courses.Add(course);
+            _dbContext.Courses.Add(entity);
             return _dbContext.SaveChanges();
         }
 
-        public int Update(Course newCourse)
+        public int Update(Course newEntity)
         {
-            var oldCourse = Get(newCourse.ID);
+            Course oldEntity = Get(newEntity.ID);
 
-            oldCourse.Name = newCourse.Name;
-            oldCourse.BeginDate = newCourse.BeginDate;
-            oldCourse.EndDate = newCourse.EndDate;
-            oldCourse.MaxStudent= newCourse.MaxStudent;
-            oldCourse.TeacherID = newCourse.TeacherID;
+            oldEntity.Name = newEntity.Name;
+            oldEntity.BeginDate = newEntity.BeginDate;
+            oldEntity.EndDate = newEntity.EndDate;
+            oldEntity.MaxStudent = newEntity.MaxStudent;
+            oldEntity.TeacherID = newEntity.TeacherID;
 
             return _dbContext.SaveChanges();
         }
 
         public int Delete(int id)
         {
-            var course = Get(id);
-            _dbContext.Courses.Remove(course);
+            Course entity = Get(id);
+            _dbContext.Courses.Remove(entity);
             return _dbContext.SaveChanges();
         }
 

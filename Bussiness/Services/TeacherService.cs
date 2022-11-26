@@ -1,13 +1,13 @@
-﻿using Repository.Entities;
+﻿using Bussiness.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness.Interfaces
+namespace Bussiness.Services
 {
-    public interface ITestService
+    public class TeacherService:ITeacherService
     {
     }
 }

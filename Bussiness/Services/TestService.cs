@@ -11,16 +11,5 @@ namespace Bussiness.Services
 {
     public class TestService : ITestService
     {
-        private ITestRepository _tr;
-
-        public TestService(ITestRepository tr)
-        {
-            _tr = tr;
-        }
-
-        public Course GetCourse()
-        {
-            return _tr.GetCourse();
-        }
     }
 }

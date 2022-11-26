@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface ITestRepository
+    public interface ITestRepository : IBaseRepository<Test, int>
     {
-        Course GetCourse();
     }
 }

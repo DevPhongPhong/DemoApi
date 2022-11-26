@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface INotJoinStudyTimeRepository:IBaseRepository<NotJoinStudyTime,int>
+    public interface IStudentCourseRepository:IBaseRepository<StudentCourse,int>
     {
     }
 }

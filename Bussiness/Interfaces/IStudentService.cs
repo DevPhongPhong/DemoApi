@@ -10,11 +10,5 @@ namespace Bussiness.Interfaces
 {
     public interface IStudentService
     {
-        Student GetByID(int id);
-        int CreateStudent(CreateOrUpdateStudent model);
-        int UpdateStudent(CreateOrUpdateStudent model);
-        int DeteleStudentByID(int id);
-        string GetStudentCode(Student student);
-        List<Course> GetListCourseJoined(Student student,int status = -1);
     }
 }

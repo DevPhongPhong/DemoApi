@@ -44,6 +44,9 @@ namespace Repository.Entities
         [Required]
         public DateTime WorkEnd { get; set; }
 
+        [Required]
+        public decimal Salary { get; set; }
+
         public TeacherLogin TeacherLogin { get; set; }
 
         public List<Course> ListCourse { get; set; }
