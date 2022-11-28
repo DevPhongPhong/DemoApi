@@ -23,7 +23,7 @@ namespace Repository.Repositories
         public StudentTest Get(int id)
         {
             StudentTest studentTest = _dbContext.StudentTests.Find(id);
-            if (studentTest == null) throw new IdNotFoundException<int>(id, studentTest.GetType());
+            if (studentTest == null) throw new NotFoundException<int>(id, studentTest.GetType());
             return studentTest;
         }
 

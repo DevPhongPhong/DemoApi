@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface ITeacherRepository:IBaseRepository<Teacher,int>
+    public interface ITeacherRepository:IBaseRepository<Teacher,int>,IUserRepository<Teacher,int>
     {
     }
 }

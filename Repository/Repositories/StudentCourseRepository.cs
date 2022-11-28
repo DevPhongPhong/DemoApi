@@ -1,6 +1,7 @@
 ﻿using Common.Exceptions;
 using Dapper;
 using MySql.Data.MySqlClient;
+using Repository.DTOs.Test;
 using Repository.Entities;
 using Repository.Interfaces;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Repository.Repositories
 {
@@ -23,7 +25,7 @@ namespace Repository.Repositories
         public StudentCourse Get(int id)
         {
             StudentCourse studentCourse = _dbContext.StudentCourses.Find(id);
-            if (studentCourse == null) throw new IdNotFoundException<int>(id, studentCourse.GetType());
+            if (studentCourse == null) throw new NotFoundException<int>(id, studentCourse.GetType());
             return studentCourse;
         }
 
@@ -60,6 +62,20 @@ namespace Repository.Repositories
             StudentCourse entity = Get(id);
             _dbContext.StudentCourses.Remove(entity);
             return _dbContext.SaveChanges();
+        }
+
+        public List<TestResult> GetListTestResult(int studentID, int courseID)
+        {
+            var query = from st in _dbContext.StudentTests
+                                    join t in _dbContext.Tests
+                                    on st.TestID equals t.ID
+                                    where st.StudentID == studentID && t.CourseID == courseID
+                                    select new TestResult
+                                    {
+                                        Score = st.Score,
+                                        Percent = t.Percent
+                                    };
+            return query.ToList();
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using Bussiness.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Crypto.Macs;
+using Repository.Entities;
 using Repository.Interfaces;
 using Repository.Repositories;
+using System;
+using System.Collections.Generic;
 
 namespace DemoApi.Controllers
 {
@@ -21,6 +25,17 @@ namespace DemoApi.Controllers
         private readonly ITeacherRepository _teacherRepository;
         private readonly ITestRepository _testRepository;
 
+        private readonly ICourseService _courseService;
+        private readonly INotJoinStudyTimeService _notJoinStudyTimeService;
+        private readonly IStudentCourseService _studentCourseService;
+        private readonly IStudentLoginService _studentLoginService;
+        private readonly IStudentService _studentService;
+        private readonly IStudentTestService _studentTestService;
+        private readonly IStudyTimeService _studyTimeService;
+        private readonly ITeacherLoginService _teacherLoginService;
+        private readonly ITeacherService _teacherService;
+        private readonly ITestService _testService;
+
         public DemoTestController(ICourseRepository courseRepository,
         INotJoinStudyTimeRepository notJoinStudyTimeRepository,
         IStudentCourseRepository studentCourseRepository,
@@ -30,7 +45,18 @@ namespace DemoApi.Controllers
         IStudyTimeRepository studyTimeRepository,
         ITeacherLoginRepository teacherLoginRepository,
         ITeacherRepository teacherRepository,
-        ITestRepository testRepository)
+        ITestRepository testRepository,
+
+        ICourseService courseService,
+        INotJoinStudyTimeService notJoinStudyTimeService,
+        IStudentCourseService studentCourseService,
+        IStudentLoginService studentLoginService,
+        IStudentService studentService,
+        IStudentTestService studentTestService,
+        IStudyTimeService studyTimeService,
+        ITeacherLoginService teacherLoginService,
+        ITeacherService teacherService,
+        ITestService testService)
         {
             _courseRepository = courseRepository;
             _notJoinStudyTimeRepository = notJoinStudyTimeRepository;
@@ -42,12 +68,29 @@ namespace DemoApi.Controllers
             _teacherLoginRepository = teacherLoginRepository;
             _teacherRepository = teacherRepository;
             _testRepository = testRepository;
+
+            _courseService = courseService;
+            _notJoinStudyTimeService = notJoinStudyTimeService;
+            _studentCourseService = studentCourseService;
+            _studentLoginService = studentLoginService;
+            _studentService = studentService;
+            _studentTestService = studentTestService;
+            _studyTimeService = studyTimeService;
+            _teacherLoginService = teacherLoginService;
+            _teacherService = teacherService;
+            _testService = testService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return Ok(_teacherRepository.Get(2));
+            //return Ok(_studentRepository.GetListTaskTime(1));
+            return Ok(_teacherRepository.GetListTaskTime(1));
+
+            //var list = new List<int>();
+            //list.Add(1);
+            //list.Add(2);
+            //return Ok(_teacherRepository.Get(list));
         }
     }
 }

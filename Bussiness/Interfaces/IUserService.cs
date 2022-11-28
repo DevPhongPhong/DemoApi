@@ -1,4 +1,4 @@
-﻿using Bussiness.DTOs;
+﻿using Bussiness.DTOs.User;
 using Repository.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface IStudentService:IBaseService<Student,int>,IUserService<Student,int>
+    public interface IUserService<TEnity,TId>
     {
+        Dictionary<DayOfWeek, List<StudyTime>> CreateSchedule(TId id);
     }
 }

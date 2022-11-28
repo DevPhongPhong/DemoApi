@@ -8,6 +8,5 @@ namespace Bussiness.Interfaces
 {
     public interface IBaseService<TEntity,TId>
     {
-
     }
 }

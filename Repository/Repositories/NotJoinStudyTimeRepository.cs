@@ -23,7 +23,7 @@ namespace Repository.Repositories
         public NotJoinStudyTime Get(int id)
         {
             NotJoinStudyTime njst = _dbContext.NotJoinStudyTimes.Find(id);
-            if (njst == null) throw new IdNotFoundException<int>(id, njst.GetType());
+            if (njst == null) throw new NotFoundException<int>(id, njst.GetType());
             return njst;
         }
 

@@ -23,7 +23,7 @@ namespace Repository.Repositories
         public TeacherLogin Get(int studentID)
         {
             TeacherLogin sl = _dbContext.TeacherLogins.Find(studentID);
-            if (sl == null) throw new IdNotFoundException<int>(studentID, sl.GetType());
+            if (sl == null) throw new NotFoundException<int>(studentID, sl.GetType());
             return sl;
         }
 
@@ -57,6 +57,41 @@ namespace Repository.Repositories
         {
             TeacherLogin entity = Get(id);
             _dbContext.TeacherLogins.Remove(entity);
+            return _dbContext.SaveChanges();
+        }
+
+        public TeacherLogin GetByUsernamePassword(string username, string password)
+        {
+            try
+            {
+                var teacherLogin = _dbContext.TeacherLogins
+                    .Where(sl => sl.Username == username && sl.Password == password)
+                    .FirstOrDefault();
+                return teacherLogin;
+            }
+            catch 
+            {
+                return null;
+            }
+
+        }
+
+        public int ChangePassword(int id, string oldPass, string newPass)
+        {
+            var teacherLogin = _dbContext.TeacherLogins.Find(id);
+
+            if (teacherLogin == null)
+            {
+                throw new NotFoundException<int>(id, new StudentLogin().GetType());
+            }
+
+            if (teacherLogin.Password != oldPass)
+            {
+                throw new WrongPassword();
+            }
+
+            teacherLogin.Password = newPass;
+
             return _dbContext.SaveChanges();
         }
     }

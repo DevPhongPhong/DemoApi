@@ -23,7 +23,7 @@ namespace Repository.Repositories
         public Course Get(int id)
         {
             Course course = _dbContext.Courses.Find(id);
-            if (course == null) throw new IdNotFoundException<int>(id, course.GetType());
+            if (course == null) throw new NotFoundException<int>(id, course.GetType());
             return course;
         }
 
@@ -66,5 +66,40 @@ namespace Repository.Repositories
             return _dbContext.SaveChanges();
         }
 
+        public List<int> GetListStudentID(int courseID)
+        {
+            try
+            {
+                var list = _dbContext.StudentCourses.Where(sc => sc.CourseID == courseID).Select(sc=>sc.ID).ToList();
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Student> GetListStudent(int courseID)
+        {
+            var list = from sc in _dbContext.StudentCourses
+                       join s in _dbContext.Students
+                       on sc.StudentID equals s.ID
+                       where sc.CourseID == courseID
+                       select s;
+            return list.ToList();
+        }
+
+        public List<StudyTime> GetListStudyTime(int courseID)
+        {
+            try
+            {
+                var list = _dbContext.StudyTimes.Where(st => st.CourseID == courseID).ToList();
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

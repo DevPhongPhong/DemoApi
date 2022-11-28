@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness.Interfaces
+namespace Common.Exceptions
 {
-    public interface ITeacherLoginService : ILoginService<int>
+    public class WrongPassword : Exception
     {
+        public override string Message => "Sai mật khẩu";
     }
 }

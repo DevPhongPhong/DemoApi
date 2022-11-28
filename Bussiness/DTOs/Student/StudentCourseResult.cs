@@ -1,0 +1,17 @@
+﻿using Repository.DTOs.Test;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bussiness.DTOs.Student
+{
+    public class StudentCourseResult
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public List<TestResult> ListTestResult { get; set; }
+    }
+}

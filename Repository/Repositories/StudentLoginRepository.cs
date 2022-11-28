@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
-    public class StudentLoginRepository:IStudentLoginRepository
+    public class StudentLoginRepository : IStudentLoginRepository
     {
         private readonly DemoDBContext _dbContext;
 
@@ -23,7 +23,7 @@ namespace Repository.Repositories
         public StudentLogin Get(int studentID)
         {
             StudentLogin sl = _dbContext.StudentLogins.Find(studentID);
-            if (sl == null) throw new IdNotFoundException<int>(studentID, sl.GetType());
+            if (sl == null) throw new NotFoundException<int>(studentID, sl.GetType());
             return sl;
         }
 
@@ -60,5 +60,39 @@ namespace Repository.Repositories
             return _dbContext.SaveChanges();
         }
 
+        public StudentLogin GetByUsernamePassword(string username, string password)
+        {
+            try
+            {
+                var studentLogin = _dbContext.StudentLogins
+                    .Where(sl => sl.Username == username && sl.Password == password)
+                    .FirstOrDefault();
+                return studentLogin;
+            }
+            catch 
+            {
+                return null;
+            }
+
+        }
+
+        public int ChangePassword(int id, string oldPass, string newPass)
+        {
+            var studentLogin = _dbContext.StudentLogins.Find(id);
+
+            if (studentLogin == null)
+            {
+                throw new NotFoundException<int>(id, new StudentLogin().GetType());
+            }
+
+            if (studentLogin.Password != oldPass)
+            {
+                throw new WrongPassword();
+            }
+
+            studentLogin.Password = newPass;
+
+            return _dbContext.SaveChanges();
+        }
     }
 }
