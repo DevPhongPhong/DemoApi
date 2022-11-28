@@ -84,13 +84,19 @@ namespace DemoApi.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //return Ok(_studentRepository.GetListTaskTime(1));
-            return Ok(_teacherRepository.GetListTaskTime(1));
-
-            //var list = new List<int>();
-            //list.Add(1);
-            //list.Add(2);
-            //return Ok(_teacherRepository.Get(list));
+            return Ok(_teacherRepository.Create(new Teacher
+            {
+                Name = "Teacher4",
+                DOB = DateTime.Parse("2022-05-24"),
+                CCCD = "033202003423",
+                Address = "Address4",
+                Status = true,
+                Email = "email1@gmail.com",
+                PhoneNumber = "0397966566",
+                WorkBegin = DateTime.Parse("2022-05-24"),
+                WorkEnd = DateTime.Parse("2022-06-24"),
+                Salary = 3000000
+            }));
         }
     }
 }
