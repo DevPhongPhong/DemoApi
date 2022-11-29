@@ -11,8 +11,10 @@ namespace Bussiness.DTOs.Course
 {
     public class ScoreBoardOfCourse
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int CourseID { get; set; }
+        public string CourseName { get; set; }
+        public int TeacherID { get; set; }
+        public string TeacherName { get; set; }
         public List<StudentCourseResult> ListStudentCourseResult { get; set; }
     }
 }

@@ -21,8 +21,6 @@ namespace Repository.Entities
         [Required]
         public bool Allowed { get; set; }
 
-        public Student Student { get; set; }
 
-        public StudyTime StudyTime { get; set; }
     }
 }

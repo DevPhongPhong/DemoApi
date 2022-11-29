@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace Bussiness.Services
 {
@@ -30,6 +31,17 @@ namespace Bussiness.Services
         {
             return _studentLogin.GetByUsernamePassword(login.Username, login.Password) == null;
         }
+
+        public int Create(StudentLogin entity)
+        {
+            return _studentLogin.Create(entity);
+        }
+
+        public int Delete(int id)
+        {
+            return _studentLogin.Delete(id);
+        }
+
         public int ForgotPassword(string emailOrPhoneNumber)
         {
             bool check = true;
@@ -51,6 +63,21 @@ namespace Bussiness.Services
                 sl = _student.GetByEmail(emailOrPhoneNumber);
             }
             return 0;
+        }
+
+        public StudentLogin Get(int id)
+        {
+            return _studentLogin.Get(id);
+        }
+
+        public List<StudentLogin> Get(List<int> ids)
+        {
+            return _studentLogin.Get(ids);
+        }
+
+        public int Update(StudentLogin newEntity)
+        {
+            return _studentLogin.Update(newEntity);
         }
     }
 }

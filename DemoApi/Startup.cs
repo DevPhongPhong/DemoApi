@@ -25,7 +25,12 @@ namespace DemoApi
         {
             Global.ConnectionString = Configuration.GetConnectionString("DemoDB");
             services.AddDbContext<DemoDBContext>();
+
+            services.AddRepository();
+
             services.AddServices();
+
+
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>

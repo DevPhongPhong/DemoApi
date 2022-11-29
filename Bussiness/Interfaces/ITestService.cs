@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface ITestService
+    public interface ITestService:IBaseService<Test,int>
     {
     }
 }

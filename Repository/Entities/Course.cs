@@ -31,14 +31,5 @@ namespace Repository.Entities
         [Required]
         public int TeacherID { get; set; }
 
-        public Teacher Teacher { get; set; }
-
-        public List<StudyTime> ListStudyTime { get; set; }
-
-        public List<Test> ListTest { get; set; }
-
-        public List<Student> ListStudent { get; set; }
-
-        
     }
 }

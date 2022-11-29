@@ -22,8 +22,5 @@ namespace Repository.Entities
         [Required]
         public float Score { get; set; }
 
-        public Test Test { get; set; }
-
-        public Student Student{ get; set; }
     }
 }

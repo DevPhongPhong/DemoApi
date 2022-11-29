@@ -36,27 +36,28 @@ namespace DemoApi.Controllers
         private readonly ITeacherService _teacherService;
         private readonly ITestService _testService;
 
-        public DemoTestController(ICourseRepository courseRepository,
-        INotJoinStudyTimeRepository notJoinStudyTimeRepository,
-        IStudentCourseRepository studentCourseRepository,
-        IStudentLoginRepository studentLoginRepository,
-        IStudentRepository studentRepository,
-        IStudentTestRepository studentTestRepository,
-        IStudyTimeRepository studyTimeRepository,
-        ITeacherLoginRepository teacherLoginRepository,
-        ITeacherRepository teacherRepository,
-        ITestRepository testRepository,
+        public DemoTestController(ICourseRepository courseRepository
+            , INotJoinStudyTimeRepository notJoinStudyTimeRepository
+            , IStudentCourseRepository studentCourseRepository
+            , IStudentLoginRepository studentLoginRepository
+            , IStudentRepository studentRepository
+            , IStudentTestRepository studentTestRepository
+            , IStudyTimeRepository studyTimeRepository
+            , ITeacherLoginRepository teacherLoginRepository
+            , ITeacherRepository teacherRepository
+            , ITestRepository testRepository
 
-        ICourseService courseService,
-        INotJoinStudyTimeService notJoinStudyTimeService,
-        IStudentCourseService studentCourseService,
-        IStudentLoginService studentLoginService,
-        IStudentService studentService,
-        IStudentTestService studentTestService,
-        IStudyTimeService studyTimeService,
-        ITeacherLoginService teacherLoginService,
-        ITeacherService teacherService,
-        ITestService testService)
+            , ICourseService courseService
+            , INotJoinStudyTimeService notJoinStudyTimeService
+            , IStudentCourseService studentCourseService
+            , IStudentLoginService studentLoginService
+            , IStudentService studentService
+            , IStudentTestService studentTestService
+            , IStudyTimeService studyTimeService
+            , ITeacherLoginService teacherLoginService
+            , ITeacherService teacherService
+            , ITestService testService
+        )
         {
             _courseRepository = courseRepository;
             _notJoinStudyTimeRepository = notJoinStudyTimeRepository;
@@ -84,19 +85,7 @@ namespace DemoApi.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return Ok(_teacherRepository.Create(new Teacher
-            {
-                Name = "Teacher4",
-                DOB = DateTime.Parse("2022-05-24"),
-                CCCD = "033202003423",
-                Address = "Address4",
-                Status = true,
-                Email = "email1@gmail.com",
-                PhoneNumber = "0397966566",
-                WorkBegin = DateTime.Parse("2022-05-24"),
-                WorkEnd = DateTime.Parse("2022-06-24"),
-                Salary = 3000000
-            }));
+            return Ok(_studentLoginService.Get(1));
         }
     }
 }

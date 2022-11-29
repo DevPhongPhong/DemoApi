@@ -22,10 +22,6 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Course>()
-                .HasOne(c => c.Teacher)
-                .WithMany(t => t.ListCourse)
-                .HasForeignKey(c=>c.TeacherID);
         }
 
         public DbSet<Course> Courses { get; set; }

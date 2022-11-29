@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface IStudentLoginService:ILoginService<int>
+    public interface IStudentLoginService:ILoginService<int>,IBaseService<StudentLogin,int>
     {
+
     }
 }

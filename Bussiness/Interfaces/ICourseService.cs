@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface ICourseService
+    public interface ICourseService:IBaseService<Course,int>
     {
         List<Student> GetListStudent(int courseID);
         List<StudyTime> GetSchedule(int courseID);

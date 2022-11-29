@@ -20,6 +20,5 @@ namespace Repository.Entities
         [StringLength(64)]
         public string Password { get; set; }
 
-        public Teacher Teacher { get; set; }
     }
 }

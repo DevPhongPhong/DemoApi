@@ -25,8 +25,5 @@ namespace Repository.Entities
         [Required]
         public short Percent { get; set; }
 
-        public Course Course { get; set; }
-
-        public List<StudentTest> ListStudentTest { get; set; }
     }
 }

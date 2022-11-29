@@ -31,8 +31,5 @@ namespace Repository.Entities
         [Required]
         public bool Status { get; set; }
 
-        public Course Course { get; set; }
-
-        public List<NotJoinStudyTime> ListNotJoinStudyTime { get; set; }
     }
 }

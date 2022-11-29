@@ -27,6 +27,17 @@ namespace Bussiness.Services
         {
             return _teacherLogin.GetByUsernamePassword(login.Username, login.Password) == null;
         }
+
+        public int Create(TeacherLogin entity)
+        {
+            return _teacherLogin.Create(entity);
+        }
+
+        public int Delete(int id)
+        {
+            return _teacherLogin.Delete(id);
+        }
+
         public int ForgotPassword(string emailOrPhoneNumber)
         {
             bool check = true;
@@ -48,6 +59,21 @@ namespace Bussiness.Services
                 sl = _teacher.GetByEmail(emailOrPhoneNumber);
             }
             return 0;
+        }
+
+        public TeacherLogin Get(int id)
+        {
+            return _teacherLogin.Get(id);
+        }
+
+        public List<TeacherLogin> Get(List<int> ids)
+        {
+            return _teacherLogin.Get(ids);
+        }
+
+        public int Update(TeacherLogin newEntity)
+        {
+            return _teacherLogin.Update(newEntity);
         }
     }
 }

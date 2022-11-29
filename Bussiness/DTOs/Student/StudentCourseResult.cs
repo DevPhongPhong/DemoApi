@@ -10,8 +10,8 @@ namespace Bussiness.DTOs.Student
 {
     public class StudentCourseResult
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int StudentID { get; set; }
+        public string StudentName { get; set; }
         public List<TestResult> ListTestResult { get; set; }
     }
 }
