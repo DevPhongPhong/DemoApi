@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness.DTOs.Course
+namespace Bussiness.DTOs.ScoreBoard
 {
     public class ScoreBoardOfCourse
     {

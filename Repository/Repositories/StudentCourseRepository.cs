@@ -21,7 +21,6 @@ namespace Repository.Repositories
             _dbContext = dbContext;
         }
 
-
         public StudentCourse Get(int id)
         {
             StudentCourse studentCourse = _dbContext.StudentCourses.Find(id);
@@ -75,6 +74,14 @@ namespace Repository.Repositories
                                         Score = st.Score,
                                         Percent = t.Percent
                                     };
+            return query.ToList();
+        }
+
+        public List<int> GetListCourseId(int studentID)
+        {
+            var query = from sc in _dbContext.StudentCourses
+                        where sc.StudentID == studentID
+                        select sc.CourseID;
             return query.ToList();
         }
     }

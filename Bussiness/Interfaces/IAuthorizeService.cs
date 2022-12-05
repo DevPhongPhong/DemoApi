@@ -1,5 +1,4 @@
 ﻿using Bussiness.DTOs.User;
-using Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface IUserService<TEnity,TId>
+    public interface IAuthorizeService
     {
-        DEMOSchedule<TEnity,TId> GetSchedule(TId id);
+        string CreateToken(Login login);
     }
 }

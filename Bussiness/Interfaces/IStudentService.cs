@@ -1,4 +1,6 @@
 ﻿using Bussiness.DTOs;
+using Bussiness.DTOs.ScoreBoard;
+using Bussiness.DTOs.Student;
 using Repository.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,5 +12,6 @@ namespace Bussiness.Interfaces
 {
     public interface IStudentService : IBaseService<Student, int>, IUserService<Student, int>
     {
+        ScoreBoardOfStudent GetScoreBoardOfStudent(int studentID);
     }
 }

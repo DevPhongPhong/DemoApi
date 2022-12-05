@@ -29,7 +29,7 @@ namespace Bussiness.Services
         }
         public bool CheckLogin(Login login)
         {
-            return _studentLogin.GetByUsernamePassword(login.Username, login.Password) == null;
+            return _studentLogin.GetByUsernamePassword(login.Username, login.Password) != null;
         }
 
         public int Create(StudentLogin entity)

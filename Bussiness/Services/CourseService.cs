@@ -1,4 +1,4 @@
-﻿using Bussiness.DTOs.Course;
+﻿using Bussiness.DTOs.ScoreBoard;
 using Bussiness.DTOs.Student;
 using Bussiness.Interfaces;
 using Repository;
@@ -51,12 +51,12 @@ namespace Bussiness.Services
             return list;
         }
 
-        public List<StudyTime> GetSchedule(int courseID)
+        public List<StudyTime> GetListStudyTime(int courseID)
         {
-            throw new NotImplementedException();
+            return _courseRepository.GetListStudyTime(courseID);
         }
 
-        public ScoreBoardOfCourse GetScoreBoard(int courseID)
+        public ScoreBoardOfCourse GetScoreBoardOfCourse(int courseID)
         {
             var course = _courseRepository.Get(courseID);
             var listStudent = _courseRepository.GetListStudent(courseID);
@@ -68,7 +68,9 @@ namespace Bussiness.Services
                 {
                     StudentID = item.ID,
                     StudentName = item.Name,
-                    ListTestResult = _studentCourseRepository.GetListTestResult(item.ID, courseID)
+                    ListTestResult = _studentCourseRepository.GetListTestResult(item.ID, courseID),
+                    CourseID = courseID,
+                    CourseName = course.Name
                 };
                 listStudentCourseResult.Add(obj);
             }

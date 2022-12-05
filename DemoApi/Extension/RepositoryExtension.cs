@@ -12,7 +12,7 @@ namespace DemoApi.Extension
 {
     public static class RepositoryExtension
     {
-        public static IServiceCollection AddRepository(this IServiceCollection services)
+        public static IServiceCollection AddCustomRepository(this IServiceCollection services)
         {
             services.AddTransient<ICourseRepository, CourseRepository>();
             services.AddTransient<INotJoinStudyTimeRepository, NotJoinStudyTimeRepository>();

@@ -10,6 +10,7 @@ namespace Repository.Interfaces
 {
     public interface IStudentCourseRepository : IBaseRepository<StudentCourse, int>
     {
+        List<int> GetListCourseId(int studentID);
         List<TestResult> GetListTestResult(int studentID, int courseID);
     }
 }

@@ -11,7 +11,7 @@ namespace Repository.Interfaces
     {
         TEntity GetByEmail(string email);
         TEntity GetByPhoneNumber(string email);
-        List<TaskTime> GetListTaskTime(int id);
-        List<TaskTime> GetListTaskTime(int id,DateTime from,DateTime to);
+        List<TaskTime> GetListTaskTime(int studentId);
+        List<TaskTime> GetListTaskTime(int studentId, DateTime from,DateTime to);
     }
 }

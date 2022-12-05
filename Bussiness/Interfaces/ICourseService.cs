@@ -1,4 +1,4 @@
-﻿using Bussiness.DTOs.Course;
+﻿using Bussiness.DTOs.ScoreBoard;
 using Repository.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,8 @@ namespace Bussiness.Interfaces
     public interface ICourseService:IBaseService<Course,int>
     {
         List<Student> GetListStudent(int courseID);
-        List<StudyTime> GetSchedule(int courseID);
+        List<StudyTime> GetListStudyTime(int courseID);
         Teacher GetTeacher(int courseID);
-        ScoreBoardOfCourse GetScoreBoard(int courseID);
+        ScoreBoardOfCourse GetScoreBoardOfCourse(int courseID);
     }
 }

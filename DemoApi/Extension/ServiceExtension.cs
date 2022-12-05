@@ -1,19 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Bussiness.Interfaces;
 using Bussiness.Services;
-using Repository.Interfaces;
-using Repository.Repositories;
 
 namespace DemoApi.Extension
 {
     public static class ServicesExtension
     {
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
+            services.AddTransient<IAuthorizeService, AuthorizeService>();
             services.AddTransient<ICourseService, CourseService>();
             services.AddTransient<INotJoinStudyTimeService, NotJoinStudyTimeService>();
             services.AddTransient<IStudentCourseService, StudentCourseService>();

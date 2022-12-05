@@ -1,4 +1,5 @@
 ﻿using Bussiness.Interfaces;
+using Common.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Crypto.Macs;
@@ -12,6 +13,7 @@ namespace DemoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class DemoTestController : ControllerBase
     {
         private readonly ICourseRepository _courseRepository;
@@ -83,6 +85,7 @@ namespace DemoApi.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public ActionResult Index()
         {
             return Ok(_studentLoginService.Get(1));

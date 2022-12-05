@@ -12,10 +12,12 @@ namespace Bussiness.Services
     public class NotJoinStudyTimeService : INotJoinStudyTimeService
     {
         readonly INotJoinStudyTimeRepository _notJoinStudyTimeRepository;
+
         public NotJoinStudyTimeService(INotJoinStudyTimeRepository notJoinStudyTimeRepository)
         {
             _notJoinStudyTimeRepository = notJoinStudyTimeRepository;
         }
+
         public int Create(NotJoinStudyTime entity)
         {
             return _notJoinStudyTimeRepository.Create(entity);
