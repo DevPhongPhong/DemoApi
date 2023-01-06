@@ -1,4 +1,4 @@
-﻿using Common.Filters;
+﻿using Common.Filters.AuthorizeFilters;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Interfaces;
 using Repository.Repositories;

@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness.Interfaces
+namespace Bussiness.DTOs.Student
 {
-    public interface IAuthorizeService
+    public class StudentRegister : UserRegister
     {
-        string CreateToken(Login login);
     }
 }

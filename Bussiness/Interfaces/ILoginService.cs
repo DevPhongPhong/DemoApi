@@ -9,8 +9,9 @@ namespace Bussiness.Interfaces
 {
     public interface ILoginService<TId>
     {
-        bool CheckLogin(Login login);
+        bool CheckLogin(Login login,out TId id);
         int ChangePassword(TId id, string oldPass, string newPass);
         int ForgotPassword(string emailOrPhoneNumber);
+        string CreateToken(string username, int id);
     }
 }

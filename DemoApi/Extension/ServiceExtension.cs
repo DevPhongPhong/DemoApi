@@ -8,7 +8,6 @@ namespace DemoApi.Extension
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services.AddTransient<IAuthorizeService, AuthorizeService>();
             services.AddTransient<ICourseService, CourseService>();
             services.AddTransient<INotJoinStudyTimeService, NotJoinStudyTimeService>();
             services.AddTransient<IStudentCourseService, StudentCourseService>();

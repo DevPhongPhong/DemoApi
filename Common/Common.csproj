@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Filters\ResourceFilters\" />
     <Folder Include="RequestResponses\" />
   </ItemGroup>
 

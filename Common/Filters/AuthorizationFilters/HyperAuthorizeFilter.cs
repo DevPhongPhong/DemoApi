@@ -12,12 +12,12 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Filters
+namespace Common.Filters.AuthorizeFilters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class HyperAuthorizeFilter : Attribute, IAuthorizationFilter
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         public HyperAuthorizeFilter(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -27,6 +27,10 @@ namespace Common.Filters
         {
             var authorize = context.HttpContext.Request.Headers["Authorization"];
             var token = authorize.FirstOrDefault()?.Split(" ").Last();
+            var path = context.HttpContext.Request.Path.Value;
+            var role = path.Split("/")[2];
+            string message = "";
+
             if (string.IsNullOrEmpty(token))
             {
                 context.Result = new UnauthorizedObjectResult(new
@@ -37,54 +41,25 @@ namespace Common.Filters
                 });
                 return;
             }
-            var principal = AuthenticateJwtToken(token);
-            if (principal.Result == null)
+            string id = "-1";
+            if (!ValidateToken(token, role, out message, out id))
             {
-                // not logged in
                 context.Result = new UnauthorizedObjectResult(new
                 {
-                    messages = "Bạn không có quyền truy cập.",
+                    messages = "Invalid Token",
                     code = 401,
                     success = false
                 });
                 return;
             }
-            context.HttpContext.Items["User"] = principal;
+            context.HttpContext.Request.Headers["id"] = id;
         }
-        protected Task<IPrincipal> AuthenticateJwtToken(string token)
+        private bool ValidateToken(string token, string role, out string message, out string id)
         {
-            if (ValidateToken(token, out var publickey))
-            {
-                IPrincipal user = new ClaimsPrincipal();
-
-                return Task.FromResult(user);
-            }
-            return Task.FromResult<IPrincipal>(null);
-        }
-        private bool ValidateToken(string token, out string publicKey)
-        {
-            publicKey = null;
-
-            var simplePrinciple = GetPrincipal(token);
-            var identity = simplePrinciple?.Identity as ClaimsIdentity;
-
-            if (identity == null)
-                return false;
-
-            if (!identity.IsAuthenticated)
-                return false;
-
-            return true;
-        }
-        public ClaimsPrincipal GetPrincipal(string token)
-        {
+            message = "Invalid Token";
+            id = "-1";
             try
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
-
-                if (jwtToken == null)
-                    return null;
                 var key = _configuration["AppSettings:SecretKey"];
                 var symmetricKey = Encoding.UTF8.GetBytes(key);
 
@@ -93,17 +68,30 @@ namespace Common.Filters
                     RequireExpirationTime = true,
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
+                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
 
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
+                var claimRole = jwtToken.Claims.First(c => c.Type == "role");
 
-                return principal;
+                if (jwtToken == null)
+                    return false;
+                if (principal == null)
+                    return false;
+                if (claimRole.Value.ToLower() != role.ToLower())
+                    return false;
+
+                message = "Success";
+                id = jwtToken.Claims.First(c => c.Type == "id").Value;
+                return true;
             }
-
             catch (Exception ex)
             {
-                return null;
+                return false;
             }
         }
     }

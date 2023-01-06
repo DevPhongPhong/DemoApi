@@ -115,5 +115,10 @@ namespace Repository.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public List<Course> GetListCourse(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

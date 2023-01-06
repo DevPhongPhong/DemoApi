@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface ICourseService:IBaseService<Course,int>
+    public interface ICourseService : IBaseService<Course, int>
     {
         List<Student> GetListStudent(int courseID);
         List<StudyTime> GetListStudyTime(int courseID);
         Teacher GetTeacher(int courseID);
         ScoreBoardOfCourse GetScoreBoardOfCourse(int courseID);
+        bool HasTeacherID(int courseID, int teacherID);
+        bool HasStudentID(int courseID, int studentID);
     }
 }

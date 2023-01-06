@@ -119,5 +119,18 @@ namespace Repository.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public List<Course> GetListCourse(int id)
+        {
+            try
+            {
+                var res = _dbContext.Courses.Where(c => c.TeacherID == id).ToList();
+                return res;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

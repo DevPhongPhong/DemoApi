@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using Bussiness.Services;
+using Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface IStudentLoginService:ILoginService<int>,IBaseService<StudentLogin,int>
+    public interface IStudentLoginService : ILoginService<int>, IBaseService<StudentLogin, int>
     {
 
     }

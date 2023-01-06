@@ -41,16 +41,6 @@ namespace DemoApi
             {
                 var SecretKey = Encoding.UTF8.GetBytes(Configuration["AppSettings:SecretKey"]);
                 o.SaveToken = true;
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["JWT:Issuer"],
-                    ValidAudience = Configuration["JWT:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(SecretKey)
-                };
             });
 
 

@@ -18,44 +18,39 @@ namespace Bussiness.Services
         private readonly ICourseRepository _courseRepository;
         private readonly ITeacherRepository _teacherRepository;
         private readonly IStudentCourseRepository _studentCourseRepository;
-        public CourseService(ICourseRepository courseRepository, ITeacherRepository teacherRepository, IStudentCourseRepository studentCourseRepository)
+        public CourseService(ICourseRepository courseRepository
+            , ITeacherRepository teacherRepository
+            , IStudentCourseRepository studentCourseRepository)
         {
             _courseRepository = courseRepository;
             _teacherRepository = teacherRepository;
             _studentCourseRepository = studentCourseRepository;
         }
-
         public int Create(Course entity)
         {
             return _courseRepository.Create(entity);
         }
-
         public int Delete(int id)
         {
             return _courseRepository.Delete(id);
         }
-
         public Course Get(int id)
         {
             return _courseRepository.Get(id);
         }
-
         public List<Course> Get(List<int> ids)
         {
             return _courseRepository.Get(ids);
         }
-
         public List<Student> GetListStudent(int courseID)
         {
             var list = _courseRepository.GetListStudent(courseID);
             return list;
         }
-
         public List<StudyTime> GetListStudyTime(int courseID)
         {
             return _courseRepository.GetListStudyTime(courseID);
         }
-
         public ScoreBoardOfCourse GetScoreBoardOfCourse(int courseID)
         {
             var course = _courseRepository.Get(courseID);
@@ -83,10 +78,19 @@ namespace Bussiness.Services
                 TeacherName = teacher.Name
             };
         }
-
         public Teacher GetTeacher(int courseID)
         {
             return _teacherRepository.Get(_courseRepository.Get(courseID).TeacherID);
+        }
+
+        public bool HasStudentID(int courseID,int studentID)
+        {
+            return _courseRepository.GetListStudentID(courseID).Any(id => id == studentID);
+        }
+
+        public bool HasTeacherID(int courseID,int teacherID)
+        {
+            return _courseRepository.Get(courseID).TeacherID == teacherID;
         }
 
         public int Update(Course newEntity)

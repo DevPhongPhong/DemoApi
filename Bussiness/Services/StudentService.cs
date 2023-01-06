@@ -53,6 +53,12 @@ namespace Bussiness.Services
             return _studentRepository.Get(ids);
         }
 
+        public List<Course> GetListCourse(int studentID)
+        {
+            var res = _studentRepository.GetListCourse(studentID);
+            return res;
+        }
+
         public DEMOSchedule<Student, int> GetSchedule(int studentId)
         {
             var student = _studentRepository.Get(studentId);

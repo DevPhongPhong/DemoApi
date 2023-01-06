@@ -11,5 +11,6 @@ namespace Bussiness.Interfaces
     public interface IUserService<TEnity,TId>
     {
         DEMOSchedule<TEnity,TId> GetSchedule(TId id);
+        List<Course> GetListCourse(TId id);
     }
 }
