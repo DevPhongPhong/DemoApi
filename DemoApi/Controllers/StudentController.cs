@@ -11,6 +11,7 @@ namespace DemoApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ServiceFilter(typeof(HyperAuthorizeFilter))]
     public class StudentController : ControllerBase
     {
         private readonly IStudentLoginService _studentloginService;
@@ -27,37 +28,7 @@ namespace DemoApi.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult Login(Login login)
-        {
-            int id = -1;
-            _studentloginService.CheckLogin(login, out id);
-            if (id != -1)
-            {
-                var token = _studentloginService.CreateToken(login.Username, id);
-                return Ok(token);
-            }
-            else return NotFound();
-        }
-        [HttpPost]
-        public IActionResult Register(StudentRegister studentRegister)
-        {
-            var student = new Student
-            {
-                ID = studentRegister.ID,
-                Address = studentRegister.UserDetail.Address,
-                CCCD = studentRegister.UserDetail.CCCD,
-                DOB = studentRegister.UserDetail.DOB,
-                Email = studentRegister.UserDetail.Email,
-                Name = studentRegister.UserDetail.Name,
-                PhoneNumber = studentRegister.UserDetail.PhoneNumber
-            };
-            if (_studentService.Create(student) == 1) return Ok(student);
-            else return BadRequest(student);
-        }
-
-        [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        [HttpGet]        
         public IActionResult GetSchedule()
         {
             var id = int.Parse(HttpContext.Request.Headers["id"][0]);
@@ -65,8 +36,7 @@ namespace DemoApi.Controllers
             return Ok(schedule);
         }
 
-        [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        [HttpGet]        
         public IActionResult GetListCourse()
         {
             var id = int.Parse(HttpContext.Request.Headers["id"][0]);
@@ -74,8 +44,7 @@ namespace DemoApi.Controllers
             return Ok(listCourse);
         }
 
-        [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        [HttpGet]        
         public IActionResult GetScoreBoard(int courseId)
         {
             var id = int.Parse(HttpContext.Request.Headers["id"][0]);
@@ -86,8 +55,7 @@ namespace DemoApi.Controllers
             return Ok(scoreBoard);
         }
 
-        [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        [HttpGet]        
         public IActionResult GetUserDetail()
         {
             try
@@ -99,8 +67,8 @@ namespace DemoApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+
+        [HttpPut]        
         public IActionResult UpdateUserDetail(UserDetail userDetail)
         {
             var id = int.Parse(HttpContext.Request.Headers["id"]);

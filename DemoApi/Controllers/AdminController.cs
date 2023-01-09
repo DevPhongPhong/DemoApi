@@ -7,6 +7,7 @@ using Bussiness.DTOs.User;
 using Bussiness.Interfaces;
 using Bussiness.Services;
 using Common.Filters.AuthorizeFilters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Entities;
@@ -16,6 +17,7 @@ namespace DemoApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ServiceFilter(typeof(HyperAuthorizeFilter))]
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
@@ -59,45 +61,72 @@ namespace DemoApi.Controllers
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult GetStudents()
         {
             return Ok(new { Detail = _studentService.GetAll(), LoginDetail = _studentLoginService.GetAll() });
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetStudent(int studentId)
+        {
+            return Ok(new { Detail = _studentService.Get(studentId), LoginDetail = _studentLoginService.Get(studentId) });
+        }
+
+        [HttpGet]
         public IActionResult GetAdmins()
         {
             return Ok(new { Detail = _adminService.GetAll(), LoginDetail = _adminLoginService.GetAll() });
         }
+
         [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+
+        public IActionResult GetAdmin(int adminId)
+        {
+            return Ok(new { Detail = _adminService.Get(adminId), LoginDetail = _adminLoginService.Get(adminId) });
+        }
+
+        [HttpGet]
         public IActionResult GetCourses()
         {
             return Ok(_courseService.GetAll());
         }
+
         [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
-        public IActionResult GetStudyTimes()
+        public IActionResult GetCourse(int courseId)
         {
-            return Ok(_studyTimeService.GetAll());
+            return Ok(new
+            {
+                course = _courseService.Get(courseId),
+                listStudent = _courseService.GetListStudent(courseId),
+                listScore = _courseService.GetScoreBoardOfCourse(courseId)
+            });
         }
+
         [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetStudyTimes(int courseId)
+        {
+            return Ok(_courseService.GetListStudyTime(courseId));
+        }
+
+        [HttpGet]
+        public IActionResult GetNotJoin(int studyTimeId)
+        {
+            return Ok(_studyTimeService.GetNotJoin(studyTimeId));
+        }
+
+        [HttpGet]
         public IActionResult GetTests()
         {
             return Ok(_testService.GetAll());
         }
+
         [HttpGet]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult GetTeachers()
         {
             return Ok(_teacherService.GetAll());
         }
 
         [HttpPost]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult CreateCourse(CourseCreateOrUpdate courseCreate)
         {
             var course = new Course
@@ -113,7 +142,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpPost]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult TeacherRegister(TeacherRegister teacherRegister)
         {
             var teacher = new Teacher
@@ -148,7 +176,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpPost]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult AdminRegister(AdminRegisterOrUpdate adminRegister)
         {
             var admin = new Admin
@@ -180,7 +207,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult UpdateAdminDetail(AdminRegisterOrUpdate adminDetail)
         {
             var id = int.Parse(HttpContext.Request.Headers["id"]);
@@ -200,7 +226,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeCourse(CourseCreateOrUpdate courseCreateOrUpdate)
         {
             var newCourse = new Course
@@ -220,7 +245,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeTeacherWorkDetail(TeacherWorkDetail teacherWorkDetail)
         {
             var teacher = new Teacher
@@ -232,11 +256,10 @@ namespace DemoApi.Controllers
             };
             var res = _teacherService.Update(teacher);
             if (res != 1) return BadRequest(teacherWorkDetail);
-            else return Ok(teacherWorkDetail);    
+            else return Ok(teacherWorkDetail);
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeTeacherStatus(int id)
         {
             try
@@ -252,7 +275,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeStudentStatus(int id)
         {
             try
@@ -268,7 +290,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteCourse(int id)
         {
             try
@@ -282,7 +303,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudent(int id)
         {
             try
@@ -296,7 +316,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteTeacher(int id)
         {
             try
@@ -310,7 +329,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudentCourse(int id)
         {
             try
@@ -324,7 +342,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudyTime(int id)
         {
             try
@@ -338,7 +355,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteNotJoinStudyTime(int id)
         {
             try
@@ -352,7 +368,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteTest(int id)
         {
             try
@@ -366,7 +381,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudentTest(int id)
         {
             try
@@ -380,7 +394,6 @@ namespace DemoApi.Controllers
         }
 
         [HttpDelete]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteAdmin(int id)
         {
             try

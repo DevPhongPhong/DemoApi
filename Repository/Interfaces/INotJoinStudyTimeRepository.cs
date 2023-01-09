@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface INotJoinStudyTimeRepository:IBaseRepository<NotJoinStudyTime,int>
+    public interface INotJoinStudyTimeRepository : IBaseRepository<NotJoinStudyTime, int>
     {
+        List<NotJoinStudyTime> GetByStudyTime(int studyTimeId);
     }
 }

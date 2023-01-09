@@ -14,9 +14,12 @@ namespace Bussiness.Services
     {
 
         readonly IStudyTimeRepository _studyTimeRepository;
-        public StudyTimeService(IStudyTimeRepository studyTimeRepository)
+        readonly INotJoinStudyTimeRepository _notJoinStudyTimeRepository;
+        public StudyTimeService(IStudyTimeRepository studyTimeRepository,
+            INotJoinStudyTimeRepository notJoinStudyTimeRepository)
         {
             _studyTimeRepository = studyTimeRepository;
+            _notJoinStudyTimeRepository = notJoinStudyTimeRepository;
         }
 
         public int ChangeStatus(int studyTimeID)
@@ -52,6 +55,11 @@ namespace Bussiness.Services
         public List<StudyTime> GetAll()
         {
             return _studyTimeRepository.GetAll();
+        }
+
+        public List<NotJoinStudyTime> GetNotJoin(int studyTimeId)
+        {
+            return _notJoinStudyTimeRepository.GetByStudyTime(studyTimeId);
         }
     }
 }

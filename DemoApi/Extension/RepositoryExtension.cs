@@ -14,6 +14,8 @@ namespace DemoApi.Extension
     {
         public static IServiceCollection AddCustomRepository(this IServiceCollection services)
         {
+            services.AddTransient<IAdminRepository, AdminRepository>();
+            services.AddTransient<IAdminLoginRepository, AdminLoginRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
             services.AddTransient<INotJoinStudyTimeRepository, NotJoinStudyTimeRepository>();
             services.AddTransient<IStudentCourseRepository, StudentCourseRepository>();

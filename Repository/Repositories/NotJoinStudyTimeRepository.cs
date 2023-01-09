@@ -68,5 +68,10 @@ namespace Repository.Repositories
         {
             return _dbContext.NotJoinStudyTimes.ToList();
         }
+
+        public List<NotJoinStudyTime> GetByStudyTime(int studyTimeId)
+        {
+            return _dbContext.NotJoinStudyTimes.Where(njst => njst.StudyTimeID == studyTimeId).ToList();
+        }
     }
 }
