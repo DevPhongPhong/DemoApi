@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using Bussiness.DTOs.Test;
+using Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace Bussiness.Interfaces
 {
     public interface IStudentTestService:IBaseService<StudentTest,int>
     {
+        int UpdateScore(ChangeTestScore changeTestScore);
     }
 }

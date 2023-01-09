@@ -14,7 +14,7 @@ using System;
 
 namespace DemoApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -29,6 +29,7 @@ namespace DemoApi.Controllers
         private readonly INotJoinStudyTimeService _notJoinStudyTimeService;
         private readonly ITestService _testService;
         private readonly IStudentTestService _studentTestService;
+        private readonly IStudentLoginService _studentLoginService;
 
         public AdminController(IAdminService adminService,
             IAdminLoginService adminLoginService,
@@ -40,7 +41,8 @@ namespace DemoApi.Controllers
             IStudyTimeService studyTimeService,
             INotJoinStudyTimeService notJoinStudyTimeService,
             ITestService testService,
-            IStudentTestService studentTestService)
+            IStudentTestService studentTestService,
+            IStudentLoginService studentLoginService)
         {
             _adminService = adminService;
             _adminLoginService = adminLoginService;
@@ -53,6 +55,45 @@ namespace DemoApi.Controllers
             _notJoinStudyTimeService = notJoinStudyTimeService;
             _testService = testService;
             _studentTestService = studentTestService;
+            _studentLoginService = studentLoginService;
+        }
+
+        [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetStudents()
+        {
+            return Ok(new { Detail = _studentService.GetAll(), LoginDetail = _studentLoginService.GetAll() });
+        }
+
+        [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetAdmins()
+        {
+            return Ok(new { Detail = _adminService.GetAll(), LoginDetail = _adminLoginService.GetAll() });
+        }
+        [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetCourses()
+        {
+            return Ok(_courseService.GetAll());
+        }
+        [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetStudyTimes()
+        {
+            return Ok(_studyTimeService.GetAll());
+        }
+        [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetTests()
+        {
+            return Ok(_testService.GetAll());
+        }
+        [HttpGet]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult GetTeachers()
+        {
+            return Ok(_teacherService.GetAll());
         }
 
         [HttpPost]
@@ -158,7 +199,7 @@ namespace DemoApi.Controllers
             else return BadRequest(adminDetail);
         }
 
-        [HttpPost]
+        [HttpPut]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeCourse(CourseCreateOrUpdate courseCreateOrUpdate)
         {
@@ -178,7 +219,7 @@ namespace DemoApi.Controllers
             else return BadRequest(newCourse);
         }
 
-        [HttpPost]
+        [HttpPut]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeTeacherWorkDetail(TeacherWorkDetail teacherWorkDetail)
         {
@@ -194,7 +235,7 @@ namespace DemoApi.Controllers
             else return Ok(teacherWorkDetail);    
         }
 
-        [HttpPost]
+        [HttpPut]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeTeacherStatus(int id)
         {
@@ -210,7 +251,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult ChangeStudentStatus(int id)
         {
@@ -226,7 +267,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteCourse(int id)
         {
@@ -240,7 +281,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudent(int id)
         {
@@ -254,7 +295,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteTeacher(int id)
         {
@@ -268,7 +309,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudentCourse(int id)
         {
@@ -282,7 +323,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudyTime(int id)
         {
@@ -296,7 +337,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteNotJoinStudyTime(int id)
         {
@@ -310,7 +351,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteTest(int id)
         {
@@ -324,7 +365,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteStudentTest(int id)
         {
@@ -338,7 +379,7 @@ namespace DemoApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult DeleteAdmin(int id)
         {

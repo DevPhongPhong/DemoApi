@@ -67,5 +67,10 @@ namespace Bussiness.Services
         {
             return _teacherRepository.Update(newEntity);
         }
+
+        public List<Teacher> GetAll()
+        {
+            return _teacherRepository.GetAll();
+        }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface IBaseService<TEntity,TId>
+    public interface IBaseService<TEntity, TId>
     {
+        List<TEntity> GetAll();
         TEntity Get(TId id);
         List<TEntity> Get(List<TId> ids);
         int Create(TEntity entity);

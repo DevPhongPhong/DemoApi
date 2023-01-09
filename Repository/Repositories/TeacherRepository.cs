@@ -140,5 +140,10 @@ namespace Repository.Repositories
             teacher.Status = !teacher.Status;
             return _dbContext.SaveChanges();
         }
+
+        public List<Teacher> GetAll()
+        {
+            return _dbContext.Teachers.ToList();
+        }
     }
 }

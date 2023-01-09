@@ -64,5 +64,9 @@ namespace Repository.Repositories
             return _dbContext.SaveChanges();
         }
 
+        public List<NotJoinStudyTime> GetAll()
+        {
+            return _dbContext.NotJoinStudyTimes.ToList();
+        }
     }
 }

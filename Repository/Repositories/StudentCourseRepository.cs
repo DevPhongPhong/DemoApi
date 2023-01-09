@@ -84,5 +84,10 @@ namespace Repository.Repositories
                         select sc.CourseID;
             return query.ToList();
         }
+
+        public List<StudentCourse> GetAll()
+        {
+            return _dbContext.StudentCourses.ToList();
+        }
     }
 }

@@ -100,5 +100,10 @@ namespace Repository.Repositories
                 return null;
             }
         }
+
+        public List<Course> GetAll()
+        {
+            return _dbContext.Courses.ToList();
+        }
     }
 }

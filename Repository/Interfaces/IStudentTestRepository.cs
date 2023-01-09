@@ -9,5 +9,6 @@ namespace Repository.Interfaces
 {
     public interface IStudentTestRepository : IBaseRepository<StudentTest, int>
     {
+        int ChangeScore(int id, float score);
     }
 }

@@ -1,6 +1,8 @@
-﻿using Bussiness.Interfaces;
+﻿using Bussiness.DTOs.Test;
+using Bussiness.Interfaces;
 using Repository.Entities;
 using Repository.Interfaces;
+using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +41,16 @@ namespace Bussiness.Services
         public int Update(StudentTest newEntity)
         {
             return _studentTestRepository.Update(newEntity);
+        }
+
+        public List<StudentTest> GetAll()
+        {
+            return _studentTestRepository.GetAll();
+        }
+
+        public int UpdateScore(ChangeTestScore changeTestScore)
+        {
+            return _studentTestRepository.ChangeScore(changeTestScore.StudentTestID, changeTestScore.Score);
         }
     }
 }

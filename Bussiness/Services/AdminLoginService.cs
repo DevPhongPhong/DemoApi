@@ -107,6 +107,11 @@ namespace Bussiness.Services
             return _adminLogin.Get(ids);
         }
 
+        public List<AdminLogin> GetAll()
+        {
+            return _adminLogin.GetAll();
+        }
+
         public int Update(AdminLogin newEntity)
         {
             return _adminLogin.Update(newEntity);

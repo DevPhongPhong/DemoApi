@@ -113,12 +113,18 @@ namespace Repository.Repositories
 
         public List<TaskTime> GetListTaskTime(int id, DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
+            return GetListTaskTime(id).Where(tt => tt.Date >= from && tt.Date <= to).ToList();
         }
 
         public List<Course> GetListCourse(int id)
         {
-            throw new NotImplementedException();
+            var query = from sc in _dbContext.StudentCourses
+                        join c in _dbContext.Courses
+                        on sc.CourseID equals c.ID
+                        where sc.StudentID == id
+                        orderby sc.ID descending
+                        select c;
+            return query.ToList();
         }
 
         public int ChangeStatus(int id)
@@ -127,6 +133,11 @@ namespace Repository.Repositories
             if (student == null) return -1;
             student.Status = !student.Status;
             return _dbContext.SaveChanges();
+        }
+
+        public List<Student> GetAll()
+        {
+            return _dbContext.Students.ToList();
         }
     }
 }

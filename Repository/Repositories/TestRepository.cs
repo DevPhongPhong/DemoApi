@@ -42,7 +42,8 @@ namespace Repository.Repositories
         public int Create(Test entity)
         {
             _dbContext.Tests.Add(entity);
-            return _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
+            return entity.ID;
         }
 
         public int Update(Test newEntity)
@@ -61,6 +62,11 @@ namespace Repository.Repositories
             Test entity = Get(id);
             _dbContext.Tests.Remove(entity);
             return _dbContext.SaveChanges();
+        }
+
+        public List<Test> GetAll()
+        {
+            return _dbContext.Tests.ToList();
         }
     }
 }

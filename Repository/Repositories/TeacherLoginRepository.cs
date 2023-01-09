@@ -94,5 +94,10 @@ namespace Repository.Repositories
 
             return _dbContext.SaveChanges();
         }
+
+        public List<TeacherLogin> GetAll()
+        {
+            return _dbContext.TeacherLogins.ToList();
+        }
     }
 }

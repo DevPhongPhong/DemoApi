@@ -61,5 +61,16 @@ namespace Repository.Repositories
             _dbContext.StudentTests.Remove(entity);
             return _dbContext.SaveChanges();
         }
+
+        public List<StudentTest> GetAll()
+        {
+            return _dbContext.StudentTests.ToList();
+        }
+
+        public int ChangeScore(int id, float score)
+        {
+            _dbContext.StudentTests.Find(id).Score = score;
+            return _dbContext.SaveChanges();
+        }
     }
 }

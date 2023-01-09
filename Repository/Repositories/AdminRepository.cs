@@ -94,5 +94,9 @@ namespace Repository.Repositories
                 throw new NotFoundException<string>(phoneNumber, new Admin().GetType());
             }
         }
+        public List<Admin> GetAll()
+        {
+            return _dbContext.Admins.ToList();
+        }
     }
 }

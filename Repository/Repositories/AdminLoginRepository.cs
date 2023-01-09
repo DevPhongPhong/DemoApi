@@ -94,5 +94,10 @@ namespace Repository.Repositories
 
             return _dbContext.SaveChanges();
         }
+
+        public List<AdminLogin> GetAll()
+        {
+            return _dbContext.AdminLogins.ToList();
+        }
     }
 }

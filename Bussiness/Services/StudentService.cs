@@ -110,5 +110,10 @@ namespace Bussiness.Services
         {
             return _studentRepository.Update(newEntity);
         }
+
+        public List<Student> GetAll()
+        {
+            return _studentRepository.GetAll();
+        }
     }
 }

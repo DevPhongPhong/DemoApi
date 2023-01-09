@@ -39,5 +39,10 @@ namespace Bussiness.Services
         {
             return _adminRepository.Update(newEntity);
         }
+
+        public List<Admin> GetAll()
+        {
+            return _adminRepository.GetAll();
+        }
     }
 }

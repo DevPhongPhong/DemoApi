@@ -97,5 +97,10 @@ namespace Bussiness.Services
         {
             return _courseRepository.Update(newEntity);
         }
+
+        public List<Course> GetAll()
+        {
+            return _courseRepository.GetAll();
+        }
     }
 }

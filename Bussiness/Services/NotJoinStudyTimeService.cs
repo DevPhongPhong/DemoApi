@@ -1,6 +1,7 @@
 ﻿using Bussiness.Interfaces;
 using Repository.Entities;
 using Repository.Interfaces;
+using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,11 @@ namespace Bussiness.Services
         public int Update(NotJoinStudyTime newEntity)
         {
             return _notJoinStudyTimeRepository.Update(newEntity);
+        }
+
+        public List<NotJoinStudyTime> GetAll()
+        {
+            return _notJoinStudyTimeRepository.GetAll();
         }
     }
 }

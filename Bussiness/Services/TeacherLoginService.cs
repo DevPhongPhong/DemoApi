@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Entities;
 using Repository.Interfaces;
+using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -110,6 +111,11 @@ namespace Bussiness.Services
         public int Update(TeacherLogin newEntity)
         {
             return _teacherLogin.Update(newEntity);
+        }
+
+        public List<TeacherLogin> GetAll()
+        {
+            return _teacherLogin.GetAll();
         }
     }
 }

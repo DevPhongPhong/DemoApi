@@ -115,5 +115,10 @@ namespace Bussiness.Services
         {
             return _studentLogin.Update(newEntity);
         }
+
+        public List<StudentLogin> GetAll()
+        {
+            return _studentLogin.GetAll();
+        }
     }
 }

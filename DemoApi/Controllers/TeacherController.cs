@@ -13,6 +13,7 @@ using Common.Filters.AuthorizeFilters;
 using Bussiness.DTOs.Teacher;
 using Repository.Entities;
 using Bussiness.DTOs.StudyTime;
+using Bussiness.DTOs.Test;
 
 namespace DemoApi.Controllers
 {
@@ -25,18 +26,24 @@ namespace DemoApi.Controllers
         private readonly ICourseService _courseService;
         private readonly IStudyTimeService _studyTimeService;
         private readonly INotJoinStudyTimeService _notJoinStudyTimeService;
+        private readonly ITestService _testService;
+        private readonly IStudentTestService _studentTestService;
 
         public TeacherController(ITeacherLoginService teacherloginService,
             ITeacherService teacherService,
             ICourseService courseService,
             IStudyTimeService studyTimeService,
-            INotJoinStudyTimeService notJoinStudyTimeService)
+            INotJoinStudyTimeService notJoinStudyTimeService,
+            ITestService testService,
+            IStudentTestService studentTestService)
         {
             _teacherloginService = teacherloginService;
             _teacherService = teacherService;
             _courseService = courseService;
             _studyTimeService = studyTimeService;
             _notJoinStudyTimeService = notJoinStudyTimeService;
+            _testService = testService;
+            _studentTestService = studentTestService;   
         }
 
         [HttpPost]
@@ -81,30 +88,6 @@ namespace DemoApi.Controllers
             return Ok(scoreBoard);
         }
 
-        [HttpPut]
-        [ServiceFilter(typeof(HyperAuthorizeFilter))]
-        public IActionResult UpdateUserDetail(UserDetail userDetail)
-        {
-            var id = int.Parse(HttpContext.Request.Headers["id"]);
-            var oldTeacher = _teacherService.Get(id);
-            var teacher = new Teacher
-            {
-                ID = id,
-                Address = userDetail.Address,
-                CCCD = userDetail.CCCD,
-                DOB = userDetail.DOB,
-                Email = userDetail.Email,
-                Name = userDetail.Name,
-                PhoneNumber = userDetail.PhoneNumber,
-                Salary = oldTeacher.Salary,
-                Status = oldTeacher.Status,
-                WorkBegin = oldTeacher.WorkBegin,
-                WorkEnd = oldTeacher.WorkEnd
-            };
-            if (_teacherService.Update(teacher) == 1) return Ok(userDetail);
-            else return BadRequest(userDetail);
-        }
-
         [HttpPost]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult CreateStudyTime(StudyTimeCreate studyTimeCreate)
@@ -133,6 +116,68 @@ namespace DemoApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult CreateTest(TestCreate testCreate)
+        {
+            try
+            {
+                var teacherId = int.Parse(HttpContext.Request.Headers["id"]);
+                if (!_courseService.HasTeacherID(testCreate.CourseID, teacherId))
+                    return BadRequest("This teacher does not has this course!");
+
+                var idNewTest = _testService.Create(new Test
+                {
+                    CourseID = testCreate.CourseID,
+                    Percent = testCreate.Percent,
+                    StartAt = testCreate.StartAt,
+                    Time = testCreate.Time
+                });
+
+                foreach(var i in testCreate.StudentIDs)
+                {
+                    var newStudentTest = new StudentTest
+                    {
+                        StudentID = i,
+                        TestID = idNewTest,
+                        Score = -1
+                    };
+
+                    _studentTestService.Create(newStudentTest);
+                }
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult UpdateUserDetail(UserDetail userDetail)
+        {
+            var id = int.Parse(HttpContext.Request.Headers["id"]);
+            var oldTeacher = _teacherService.Get(id);
+            var teacher = new Teacher
+            {
+                ID = id,
+                Address = userDetail.Address,
+                CCCD = userDetail.CCCD,
+                DOB = userDetail.DOB,
+                Email = userDetail.Email,
+                Name = userDetail.Name,
+                PhoneNumber = userDetail.PhoneNumber,
+                Salary = oldTeacher.Salary,
+                Status = oldTeacher.Status,
+                WorkBegin = oldTeacher.WorkBegin,
+                WorkEnd = oldTeacher.WorkEnd
+            };
+            if (_teacherService.Update(teacher) == 1) return Ok(userDetail);
+            else return BadRequest(userDetail);
         }
 
         [HttpPost]
@@ -167,6 +212,21 @@ namespace DemoApi.Controllers
                 }
 
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult ChangeTestScore(ChangeTestScore changeTestScore)
+        {
+            try
+            {
+                _studentTestService.UpdateScore(changeTestScore);
+                return Ok(changeTestScore);
             }
             catch (Exception ex)
             {

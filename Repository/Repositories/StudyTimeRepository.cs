@@ -71,5 +71,10 @@ namespace Repository.Repositories
             studyTime.Status = !studyTime.Status;
             return _dbContext.SaveChanges();
         }
+
+        public List<StudyTime> GetAll()
+        {
+            return _dbContext.StudyTimes.ToList();
+        }
     }
 }

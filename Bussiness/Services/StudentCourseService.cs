@@ -1,6 +1,7 @@
 ﻿using Bussiness.Interfaces;
 using Repository.Entities;
 using Repository.Interfaces;
+using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,11 @@ namespace Bussiness.Services
         public int Update(StudentCourse newEntity)
         {
             return _studentCourseRepository.Update(newEntity);
+        }
+
+        public List<StudentCourse> GetAll()
+        {
+            return _studentCourseRepository.GetAll();
         }
     }
 }
