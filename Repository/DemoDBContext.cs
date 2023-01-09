@@ -23,7 +23,8 @@ namespace Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
-
+        public DbSet<AdminLogin> AdminLogins { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<NotJoinStudyTime> NotJoinStudyTimes { get; set; }
         public DbSet<Student> Students { get; set; }

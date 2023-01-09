@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Entities
 {
-    public class Course
+    public class Admin
     {
         [Key]
         public int ID { get; set; }
@@ -17,19 +17,25 @@ namespace Repository.Entities
         public string Name { get; set; }
 
         [Required]
-        public DateTime BeginDate { get; set; }
+        public DateTime DOB { get; set; }
 
         [Required]
-        public short MaxStudent { get; set; }
+        [StringLength(12)]
+        public string CCCD { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        [StringLength(200)]
+        public string Address { get; set; }
 
         [Required]
-        public int TeacherID { get; set; }
+        public bool Status { get; set; }
 
         [Required]
-        public short TotalPeriods { get; set; }
+        [StringLength(50)]
+        public string Email { get; set; }
 
+        [Required]
+        [StringLength(10)]
+        public string PhoneNumber { get; set; }
     }
 }

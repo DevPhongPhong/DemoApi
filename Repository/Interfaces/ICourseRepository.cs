@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface ICourseRepository : IBaseRepository<Course,int>
+    public interface ICourseRepository : IBaseRepository<Course, int>
     {
         List<int> GetListStudentID(int courseID);
         List<Student> GetListStudent(int courseID);

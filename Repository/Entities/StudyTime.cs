@@ -17,9 +17,6 @@ namespace Repository.Entities
         public int CourseID { get; set; }
 
         [Required]
-        public short Number { get; set; }
-
-        [Required]
         public DateTime Date { get; set; }
 
         [Required]

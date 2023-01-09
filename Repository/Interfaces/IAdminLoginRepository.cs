@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness.Interfaces
+namespace Repository.Interfaces
 {
-    public interface IStudyTimeService:IBaseService<StudyTime,int>
+    public interface IAdminLoginRepository: IBaseRepository<AdminLogin, int>, ILoginRepository<AdminLogin, int>
     {
-        int ChangeStatus(int studyTimeID);
     }
 }

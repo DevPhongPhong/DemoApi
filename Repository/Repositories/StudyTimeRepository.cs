@@ -50,7 +50,6 @@ namespace Repository.Repositories
         {
             StudyTime oldEntity = Get(newEntity.ID);
 
-            oldEntity.Number = newEntity.Number;
             oldEntity.Status = newEntity.Status;
             oldEntity.StartTime = newEntity.StartTime;
             oldEntity.EndTime = newEntity.EndTime;
@@ -63,6 +62,13 @@ namespace Repository.Repositories
         {
             StudyTime entity = Get(id);
             _dbContext.StudyTimes.Remove(entity);
+            return _dbContext.SaveChanges();
+        }
+
+        public int ChangeStatus(int studyTimeID)
+        {
+            var studyTime = Get(studyTimeID);
+            studyTime.Status = !studyTime.Status;
             return _dbContext.SaveChanges();
         }
     }

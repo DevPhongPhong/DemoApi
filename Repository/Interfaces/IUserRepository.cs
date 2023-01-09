@@ -15,5 +15,6 @@ namespace Repository.Interfaces
         List<TaskTime> GetListTaskTime(int studentId);
         List<TaskTime> GetListTaskTime(int studentId, DateTime from,DateTime to);
         List<Course> GetListCourse(TId id);
+        int ChangeStatus(TId id);
     }
 }

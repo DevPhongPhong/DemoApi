@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Common.Filters.AuthorizeFilters;
 using Bussiness.DTOs.Teacher;
 using Repository.Entities;
+using Bussiness.DTOs.StudyTime;
 
 namespace DemoApi.Controllers
 {
@@ -22,15 +23,20 @@ namespace DemoApi.Controllers
         private readonly ITeacherLoginService _teacherloginService;
         private readonly ITeacherService _teacherService;
         private readonly ICourseService _courseService;
+        private readonly IStudyTimeService _studyTimeService;
+        private readonly INotJoinStudyTimeService _notJoinStudyTimeService;
 
         public TeacherController(ITeacherLoginService teacherloginService,
             ITeacherService teacherService,
-            ICourseService courseService)
+            ICourseService courseService,
+            IStudyTimeService studyTimeService,
+            INotJoinStudyTimeService notJoinStudyTimeService)
         {
             _teacherloginService = teacherloginService;
             _teacherService = teacherService;
             _courseService = courseService;
-
+            _studyTimeService = studyTimeService;
+            _notJoinStudyTimeService = notJoinStudyTimeService;
         }
 
         [HttpPost]
@@ -74,11 +80,13 @@ namespace DemoApi.Controllers
             var scoreBoard = _courseService.GetScoreBoardOfCourse(courseId);
             return Ok(scoreBoard);
         }
+
         [HttpPut]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
         public IActionResult UpdateUserDetail(UserDetail userDetail)
         {
             var id = int.Parse(HttpContext.Request.Headers["id"]);
+            var oldTeacher = _teacherService.Get(id);
             var teacher = new Teacher
             {
                 ID = id,
@@ -87,25 +95,83 @@ namespace DemoApi.Controllers
                 DOB = userDetail.DOB,
                 Email = userDetail.Email,
                 Name = userDetail.Name,
-                PhoneNumber = userDetail.PhoneNumber
+                PhoneNumber = userDetail.PhoneNumber,
+                Salary = oldTeacher.Salary,
+                Status = oldTeacher.Status,
+                WorkBegin = oldTeacher.WorkBegin,
+                WorkEnd = oldTeacher.WorkEnd
             };
             if (_teacherService.Update(teacher) == 1) return Ok(userDetail);
             else return BadRequest(userDetail);
         }
-        [HttpPut]
+
+        [HttpPost]
         [ServiceFilter(typeof(HyperAuthorizeFilter))]
-        public IActionResult UpdateWorkDetail(TeacherWorkDetail teacherWorkDetail)
+        public IActionResult CreateStudyTime(StudyTimeCreate studyTimeCreate)
         {
-            var id = int.Parse(HttpContext.Request.Headers["id"]);
-            var teacher = new Teacher
+            try
             {
-                ID = id,
-                Salary = teacherWorkDetail.Salary,
-                WorkBegin = teacherWorkDetail.WorkBegin,
-                WorkEnd = teacherWorkDetail.WorkEnd
-            };
-            if (_teacherService.Update(teacher) == 1) return Ok(teacherWorkDetail);
-            else return BadRequest(teacherWorkDetail);
+                var teacherID = int.Parse(HttpContext.Request.Headers["id"]);
+                if (!_courseService.HasTeacherID(studyTimeCreate.CourseID, teacherID)) return BadRequest("This teacher do not has courseID " + studyTimeCreate.CourseID);
+
+                var course = _courseService.Get(studyTimeCreate.CourseID);
+                foreach (var item in studyTimeCreate.ListTime)
+                {
+                    var studyTime = new StudyTime
+                    {
+                        CourseID = studyTimeCreate.CourseID,
+                        Date = item.Date,
+                        StartTime = item.StartTime,
+                        EndTime = item.EndTime,
+                        Status = true
+                    };
+                    _studyTimeService.Create(studyTime);
+                }
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(HyperAuthorizeFilter))]
+        public IActionResult CompleteStudyTime(CompleteStudyTime completeStudyTime)
+        {
+            try
+            {
+                var teacherID = int.Parse(HttpContext.Request.Headers["id"]);
+                var studyTime = _studyTimeService.Get(completeStudyTime.StudyTimeID);
+                var course = _courseService.Get(studyTime.CourseID);
+                if (course.TeacherID != teacherID) return BadRequest("This teacher do not has courseID " + studyTime.CourseID);
+
+                if (_studyTimeService.ChangeStatus(completeStudyTime.StudyTimeID) != 1) return BadRequest();
+
+                try
+                {
+                    foreach (var item in completeStudyTime.NotJoinStudents)
+                    {
+                        var notJoinStudyTime = new NotJoinStudyTime
+                        {
+                            StudentID = item.StudentID,
+                            Allowed = item.Allowed,
+                            StudyTimeID = completeStudyTime.StudyTimeID
+                        };
+                        _notJoinStudyTimeService.Create(notJoinStudyTime);
+                    }
+                }
+                catch
+                {
+
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

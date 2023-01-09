@@ -5,19 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.Entities
+namespace Bussiness.DTOs.Course
 {
-    public class Course
+    public class CourseCreateOrUpdate
     {
-        [Key]
-        public int ID { get; set; }
-
+        public int Id { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
         [Required]
         public DateTime BeginDate { get; set; }
+
+        [Required]
+        public DateTime EndDate { get; set; }
 
         [Required]
         public short MaxStudent { get; set; }

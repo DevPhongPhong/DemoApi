@@ -9,6 +9,7 @@ namespace Bussiness.DTOs.Teacher
 {
     public class TeacherWorkDetail
     {
+        public int Id { get; set; }
         [Required]
         public DateTime WorkBegin { get; set; }
 

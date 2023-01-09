@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bussiness.Interfaces
 {
-    public interface IStudyTimeService:IBaseService<StudyTime,int>
+    public interface IAdminService:IBaseService<Admin,int>
     {
-        int ChangeStatus(int studyTimeID);
     }
 }

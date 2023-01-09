@@ -18,6 +18,12 @@ namespace Bussiness.Services
         {
             _teacherRepository = teacherRepository;
         }
+
+        public int ChangeStatus(int id)
+        {
+            return _teacherRepository.ChangeStatus(id);
+        }
+
         public int Create(Teacher entity)
         {
             return _teacherRepository.Create(entity);

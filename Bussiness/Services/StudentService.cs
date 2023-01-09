@@ -33,6 +33,12 @@ namespace Bussiness.Services
             _courseRepository = courseRepository;
             _studyTimeRepository = studyTimeRepository;
         }
+
+        public int ChangeStatus(int id)
+        {
+            return _studentRepository.ChangeStatus(id);
+        }
+
         public int Create(Student entity)
         {
             return _studentRepository.Create(entity);

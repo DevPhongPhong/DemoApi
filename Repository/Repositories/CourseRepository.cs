@@ -52,7 +52,6 @@ namespace Repository.Repositories
 
             oldEntity.Name = newEntity.Name;
             oldEntity.BeginDate = newEntity.BeginDate;
-            oldEntity.EndDate = newEntity.EndDate;
             oldEntity.MaxStudent = newEntity.MaxStudent;
             oldEntity.TeacherID = newEntity.TeacherID;
 
@@ -70,7 +69,7 @@ namespace Repository.Repositories
         {
             try
             {
-                var list = _dbContext.StudentCourses.Where(sc => sc.CourseID == courseID).Select(sc=>sc.ID).ToList();
+                var list = _dbContext.StudentCourses.Where(sc => sc.CourseID == courseID).Select(sc => sc.ID).ToList();
                 return list;
             }
             catch

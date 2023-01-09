@@ -12,5 +12,6 @@ namespace Bussiness.Interfaces
     {
         DEMOSchedule<TEnity,TId> GetSchedule(TId id);
         List<Course> GetListCourse(TId id);
+        int ChangeStatus(TId id);
     }
 }

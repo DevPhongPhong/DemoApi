@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace Repository.Interfaces
 {
-    public interface IStudyTimeRepository:IBaseRepository<StudyTime,int>
+    public interface IAdminRepository:IBaseRepository<Admin,int>
     {
-        int ChangeStatus(int studyTimeID);
+        Admin GetByEmail(string email);
+        Admin GetByPhoneNumber(string email);
     }
 }

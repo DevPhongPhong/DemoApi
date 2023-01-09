@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness.Interfaces
+namespace Bussiness.DTOs.StudyTime
 {
-    public interface IStudyTimeService:IBaseService<StudyTime,int>
+    public class StudyTimeCreate
     {
-        int ChangeStatus(int studyTimeID);
+        public int CourseID { get; set; }
+        public Time[] ListTime { get; set; }
     }
 }

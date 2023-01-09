@@ -17,6 +17,12 @@ namespace Bussiness.Services
         {
             _studyTimeRepository = studyTimeRepository;
         }
+
+        public int ChangeStatus(int studyTimeID)
+        {
+           return _studyTimeRepository.ChangeStatus(studyTimeID);
+        }
+
         public int Create(StudyTime entity)
         {
             return _studyTimeRepository.Create(entity);

@@ -102,7 +102,7 @@ namespace Repository.Repositories
                 using var conn = new MySqlConnection(Global.Global.ConnectionString);
                 var param = new DynamicParameters();
                 param.Add("@studentID", id);
-                var res = conn.Query<TaskTime>("GetStudentTaskTime",param,commandType:CommandType.StoredProcedure).ToList();
+                var res = conn.Query<TaskTime>("GetStudentTaskTime", param, commandType: CommandType.StoredProcedure).ToList();
                 return res;
             }
             catch
@@ -119,6 +119,14 @@ namespace Repository.Repositories
         public List<Course> GetListCourse(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public int ChangeStatus(int id)
+        {
+            var student = _dbContext.Students.Find(id);
+            if (student == null) return -1;
+            student.Status = !student.Status;
+            return _dbContext.SaveChanges();
         }
     }
 }

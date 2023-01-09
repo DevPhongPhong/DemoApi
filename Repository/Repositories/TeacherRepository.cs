@@ -132,5 +132,13 @@ namespace Repository.Repositories
                 return null;
             }
         }
+
+        public int ChangeStatus(int id)
+        {
+            var teacher = _dbContext.Teachers.Find(id);
+            if (teacher == null) return -1;
+            teacher.Status = !teacher.Status;
+            return _dbContext.SaveChanges();
+        }
     }
 }
